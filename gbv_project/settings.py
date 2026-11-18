@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import shutil
 from pathlib import Path
 import dj_database_url
 
@@ -76,20 +77,39 @@ WSGI_APPLICATION = 'gbv_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# Allow external PostgreSQL (e.g. Neon, Supabase, Railway) when DATABASE_URL is set
 if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    # External managed PostgreSQL (e.g. Neon, Supabase, Railway)
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+elif os.environ.get('VERCEL'):
+    # Vercel Serverless environment: copy bundled pre-seeded db to writable /tmp
+    original_db = BASE_DIR / 'db.sqlite3'
+    target_db = Path('/tmp/db.sqlite3')
+    if original_db.exists() and not target_db.exists():
+        try:
+            shutil.copy(original_db, target_db)
+        except Exception:
+            pass
+    db_path = target_db if target_db.exists() else original_db
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': db_path,
+        }
+    }
+else:
+    # Standard local development database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -128,7 +148,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-os.makedirs(STATIC_ROOT, exist_ok=True)
 
 STORAGES = {
     "default": {
