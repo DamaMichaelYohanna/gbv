@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confidential Advisory Chat | Nasarawa State University, Keffi (NSUK)</title>
+    <meta name="description" content="100% anonymous, safe, and confidential advisory chatbot and emergency support workspace for NSUK students and staff.">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="{% static 'advisor/css/style.css' %}">
+</head>
+<body class="chat-page-body">
+
+    <!-- Safety Banner & Quick Exit -->
+    <div class="safety-topbar" id="safety-topbar">
+        <div class="safety-topbar-content">
+            <span>🛡️ <strong>CONFIDENTIAL CAMPUS CHAT:</strong> Need to hide this screen immediately?</span>
+            <span class="safety-badge">Press ESC</span>
+            <span>or click the Quick Exit button</span>
+        </div>
+        <button class="btn-quick-exit" title="Instantly exit this site and wipe local session (Shortcut: ESC)">
+            🏃‍♀️ Quick Exit (ESC)
+        </button>
+    </div>
+
+    <!-- Chat Page Top Navbar -->
+    <header class="chat-navbar">
+        <div class="chat-nav-left">
+            <a href="{% url 'advisor:home' %}" class="btn-back-home" title="Return to NSUK Portal Homepage">
+                <span>← Back to NSUK Portal</span>
+            </a>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="nsuk-crest-emblem" style="width: 40px; height: 40px; font-size: 1.1rem;">
+                    <span>🏛️</span>
+                </div>
+                <div>
+                    <strong style="color: var(--nsuk-green-darker); font-size: 0.95rem;">NSUK GBV Advisory Assistant</strong>
+                    <div style="font-size: 0.75rem; color: var(--nsuk-gold-dark); font-weight: 600;">Confidential AI Safe Space (Endy)</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="{% url 'advisor:home' %}#about" class="nav-link" style="font-size: 0.85rem;">Policy Guide</a>
+            <button class="btn-quick-exit" style="padding: 6px 12px;">
+                🏃‍♀️ Quick Exit (ESC)
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Chat Workspace -->
+    <main class="chat-workspace">
+        
+        <!-- Left: Chat Section -->
+        <section class="chat-section">
+            <div class="chat-safe-notice">
+                <span>🔒</span>
+                <span><strong>100% Confidential & Secure:</strong> No names, matric numbers, or IP addresses are ever stored. Chat history is cleared when you exit.</span>
+            </div>
+            
+            <div class="chat-history" id="chat-history">
+                <!-- Chat messages loaded dynamically via JavaScript -->
+            </div>
+            
+            <div class="chat-input-bar">
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Type a message (e.g. 'Types of GBV', 'I feel distressed', 'Safety guidance', 'Campus helplines')..." autocomplete="off">
+                </div>
+                <button id="send-btn" class="btn-send" title="Send Message">
+                    <span>➔</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Right: Information, Directory, Planner Section -->
+        <section class="resource-section">
+            <!-- Tabs Navigation -->
+            <nav class="tab-header">
+                <button class="tab-btn active" data-tab="tab-resources">Resource Hub</button>
+                <button class="tab-btn" data-tab="tab-directory">Find Support</button>
+                <button class="tab-btn" data-tab="tab-planner">Safety Planner</button>
+            </nav>
+
+            <!-- Tab Content Pane -->
+            <div class="tab-content">
+                
+                <!-- Tab 1: Resource Hub (Knowledge Base) -->
+                <div class="tab-pane active" id="tab-resources">
+                    <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 6px;">
+                        
+                        <div class="kb-card">
+                            <div class="kb-card-header">
+                                <h3 class="kb-card-title">Physical Abuse</h3>
+                                <span class="kb-card-tag">Physical</span>
+                            </div>
+                            <p class="kb-card-body">
+                                Inflicting bodily harm or threat of physical force: hitting, punching, slapping, kicking, choking, or weapon violence. You have the right to bodily safety.
+                            </p>
+                        </div>
+                        
+                        <div class="kb-card highlight">
+                            <div class="kb-card-header">
+                                <h3 class="kb-card-title">Sexual Harassment & Assault</h3>
+                                <span class="kb-card-tag" style="background: var(--nsuk-gold-soft); color: var(--nsuk-gold-dark);">Campus Zero Tolerance</span>
+                            </div>
+                            <p class="kb-card-body">
+                                Any non-consensual sexual act, forced contact, unwanted touching, or sexual extortion ("sex for marks"). NSUK regulations strictly prohibit and prosecute these offenses.
+                            </p>
+                        </div>
+
+                        <div class="kb-card">
+                            <div class="kb-card-header">
+                                <h3 class="kb-card-title">Emotional & Psychological Abuse</h3>
+                                <span class="kb-card-tag">Emotional</span>
+                            </div>
+                            <p class="kb-card-body">
+                                Non-physical behaviors including constant degradation, threats, gaslighting, extreme jealousy, forced social isolation, and academic blackmail.
+                            </p>
+                        </div>
+
+                        <div class="kb-card">
+                            <div class="kb-card-header">
+                                <h3 class="kb-card-title">Economic / Financial Abuse</h3>
+                                <span class="kb-card-tag">Economic</span>
+                            </div>
+                            <p class="kb-card-body">
+                                Controlling or withholding money, school tuition, or living allowances to maintain coercive control and dependency.
+                            </p>
+                        </div>
+
+                        <div class="kb-card">
+                            <div class="kb-card-header">
+                                <h3 class="kb-card-title">Harmful Cultural Practices</h3>
+                                <span class="kb-card-tag">Customary</span>
+                            </div>
+                            <p class="kb-card-body">
+                                Customary practices violating human rights: Female Genital Mutilation (FGM), child/forced marriage, and degrading widowhood rites.
+                            </p>
+                        </div>
+
+                        <div class="kb-card highlight">
+                            <div class="kb-card-header">
+                                <h3 class="kb-card-title">Online & Cyber GBV</h3>
+                                <span class="kb-card-tag" style="background: var(--nsuk-gold-soft); color: var(--nsuk-gold-dark);">Digital Safety</span>
+                            </div>
+                            <p class="kb-card-body">
+                                Cyberstalking, non-consensual sharing or threats of intimate photos, online harassment, and digital surveillance via stalkerware.
+                            </p>
+                        </div>
+
+                        <div class="kb-card" style="border-left: 5px solid var(--nsuk-gold);">
+                            <div class="kb-card-header">
+                                <h3 class="kb-card-title">The VAPP Act & Student Rights</h3>
+                                <span class="kb-card-tag" style="background: var(--nsuk-green-soft); color: var(--nsuk-green);">Legal Rights</span>
+                            </div>
+                            <p class="kb-card-body">
+                                The Violence Against Persons (Prohibition) Act criminalizes all forms of GBV in Nigeria. Survivors have rights to protection orders, medical care, and legal aid.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Tab 2: Find Support Directory -->
+                <div class="tab-pane" id="tab-directory">
+                    <div style="padding-top: 8px;">
+                        <div class="form-group" style="margin-bottom: 12px;">
+                            <label class="form-label" for="state-select">Select State</label>
+                            <select id="state-select" class="form-select">
+                                <option value="" selected>-- All States (Nasarawa Highlighted) --</option>
+                                {% for code, name in states %}
+                                    <option value="{{ code }}" {% if code == 'Nasarawa' %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label class="form-label" for="category-select">Support Service Required</label>
+                            <select id="category-select" class="form-select">
+                                <option value="" selected>-- All Categories --</option>
+                                {% for code, name in categories %}
+                                    <option value="{{ code }}">{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button id="search-orgs-btn" class="btn-filter-search" style="width: 100%; margin-bottom: 20px;">
+                            Search Support Services
+                        </button>
+
+                        <!-- Directory Output List -->
+                        <div id="directory-results" style="display: flex; flex-direction: column; gap: 16px;">
+                            <div style="text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.9rem;">
+                                🔎 Click "Search Support Services" or select a filter above to locate emergency clinics, hotlines, and legal aid.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Interactive Safety Planner -->
+                <div class="tab-pane" id="tab-planner">
+                    <div style="padding-top: 8px;">
+                        <div class="planner-welcome">
+                            <strong>Interactive Campus Safety Plan:</strong> Check off items as you secure them. This checklist is stored <strong>only in your browser's private local storage</strong> and is never sent to any server.
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="planner-progress-box">
+                            <div class="progress-header">
+                                <span class="progress-title" style="color: var(--nsuk-green-dark);">Safety Preparedness Status</span>
+                                <span class="progress-percent" id="planner-progress-text" style="color: var(--nsuk-green); font-weight: 800;">0% Complete</span>
+                            </div>
+                            <div class="progress-bar-track">
+                                <div class="progress-bar-fill" id="planner-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <div class="planner-steps">
+                            <!-- Emergency Steps -->
+                            <div class="planner-category-block" id="planner-sec-emergency">
+                                <h4 class="planner-category-title">Emergency Preparation</h4>
+                                <div class="planner-checklist">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="emp-phone">
+                                        <span>Keep mobile phone charged with emergency airtime/data close to you.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="emp-cash">
+                                        <span>Stash emergency transport cash in a concealed spot or with a trusted friend.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="emp-code">
+                                        <span>Establish a secret code word with a trusted roommate or family member.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="emp-exit">
+                                        <span>Identify two exit routes from your room, hostel, or lodge.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Document Checklist -->
+                            <div class="planner-category-block" id="planner-sec-documents">
+                                <h4 class="planner-category-title">Critical Documents to Secure</h4>
+                                <div class="planner-checklist">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="doc-id">
+                                        <span>Student ID card, National ID (NIN), or Driver's License.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="doc-academic">
+                                        <span>Admission letters, course registration forms, and credential copies.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="doc-meds">
+                                        <span>Essential medical prescriptions, health cards, and emergency medicines.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="doc-bank">
+                                        <span>ATM cards, bank documents, and emergency tokens in your name only.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Digital Safety -->
+                            <div class="planner-category-block" id="planner-sec-digital">
+                                <h4 class="planner-category-title">Digital & Communications Safety</h4>
+                                <div class="planner-checklist">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="dig-pwd">
+                                        <span>Change email and student portal passwords to strong, unique combinations.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="dig-cache">
+                                        <span>Regularly clear browser history and use private/incognito browsing.</span>
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="dig-evidence">
+                                        <span>Take secure screenshots/recordings of threats and store them on a secret cloud drive.</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Planner Actions -->
+                        <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                            <button id="download-plan-btn" class="btn-planner-action">
+                                🖨️ Print / Save Safety Plan
+                            </button>
+                            <button id="clear-plan-btn" style="background: none; border: 1px solid var(--border-light); color: var(--danger-red); padding: 8px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem;">
+                                🗑️ Clear Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="{% static 'advisor/js/main.js' %}"></script>
+</body>
+</html>
+

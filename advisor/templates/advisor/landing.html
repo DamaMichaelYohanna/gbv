@@ -1,0 +1,477 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBV Advisory Portal | Nasarawa State University, Keffi (NSUK)</title>
+    <meta name="description" content="Confidential, secure, and anonymous advisory chatbot and support services directory for students, staff, and visitors of Nasarawa State University, Keffi (NSUK).">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="{% static 'advisor/css/style.css' %}">
+</head>
+<body>
+
+    <!-- Safety Banner & Quick Exit -->
+    <div class="safety-topbar" id="safety-topbar">
+        <div class="safety-topbar-content">
+            <span>🛡️ <strong>CONFIDENTIAL CAMPUS PORTAL:</strong> Need to hide this page immediately?</span>
+            <span class="safety-badge">Press ESC</span>
+            <span>or click the Quick Exit button</span>
+        </div>
+        <button class="btn-quick-exit" title="Instantly redirect to Google and wipe local session (Shortcut: ESC)">
+            🏃‍♀️ Quick Exit (ESC)
+        </button>
+    </div>
+
+    <!-- Institutional Header (NSUK Style) -->
+    <header class="nsuk-header">
+        <div class="header-inner">
+            <a href="{% url 'advisor:home' %}" class="nsuk-brand" title="Nasarawa State University, Keffi">
+                <div class="nsuk-crest-emblem">
+                    <span>🏛️</span>
+                </div>
+                <div class="nsuk-brand-text">
+                    <h1>NASARAWA STATE UNIVERSITY, KEFFI</h1>
+                    <div class="sub-title">Centre for Gender Studies & Anti-GBV Unit</div>
+                    <div class="motto">"Knowledge for Development"</div>
+                </div>
+            </a>
+
+            <nav class="nsuk-nav">
+                <a href="#about" class="nav-link active">About Policy</a>
+                <a href="#knowledge-base" class="nav-link">Resource Hub</a>
+                <a href="#campus-support" class="nav-link">Find Support</a>
+                <a href="#safety-protocol" class="nav-link">Safety Planner</a>
+                <a href="#campuses" class="nav-link">Campuses</a>
+                <a href="{% url 'advisor:dashboard' %}" class="nav-link" style="color: var(--nsuk-gold-dark);" title="Staff dashboard">Dashboard</a>
+                <a href="{% url 'advisor:chat_page' %}" class="btn-cta-chat">
+                    <span>💬 Confidential Chat</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <span>🎓 NSUK ZERO TOLERANCE CAMPUS INITIATIVE</span>
+                </div>
+                <h1 class="hero-title">
+                    Confidential <span class="highlight-gold">GBV Advisory</span> & Support Portal
+                </h1>
+                <p class="hero-description">
+                    A safe, secure, and completely anonymous digital sanctuary for students, academic & non-academic staff, and visitors. Access 24/7 AI advisory guidance, campus safety planning, verified clinic referrals, and legal protection without registration or identity disclosure.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="{% url 'advisor:chat_page' %}" class="btn-hero-primary">
+                        <span>💬 Start Confidential Chat</span>
+                        <span>➔</span>
+                    </a>
+                    <a href="#campus-support" class="btn-hero-secondary">
+                        <span>🛡️ Campus Emergency Helplines</span>
+                    </a>
+                    <a href="{% url 'advisor:chat_page' %}?tab=tab-planner" class="btn-hero-secondary">
+                        <span>📋 Safety Planner</span>
+                    </a>
+                </div>
+
+                <div class="hero-trust-badges">
+                    <div class="trust-badge-item">
+                        <span class="icon">🔒</span>
+                        <span>100% Anonymous (Zero PII Stored)</span>
+                    </div>
+                    <div class="trust-badge-item">
+                        <span class="icon">⚡</span>
+                        <span>Instant ESC Quick Exit</span>
+                    </div>
+                    <div class="trust-badge-item">
+                        <span class="icon">⚖️</span>
+                        <span>VAPP Act & Campus Handbook Compliant</span>
+                    </div>
+                    <div class="trust-badge-item">
+                        <span class="icon">🏥</span>
+                        <span>NSUK Health Services Partnered</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Right Card Panel -->
+            <div class="hero-card-panel">
+                <div class="hero-card-header">
+                    <div class="bot-avatar">🤖</div>
+                    <div>
+                        <h3>Meet Endy, Campus Advisor</h3>
+                        <p>24/7 Confidential Advisory Assistant</p>
+                    </div>
+                </div>
+
+                <div class="hero-chat-teaser">
+                    "Hello! I am Endy. I provide empathetic, confidential guidance on sexual harassment, abuse, safety planning, and university support services. Your identity is always completely protected."
+                </div>
+
+                <a href="{% url 'advisor:chat_page' %}" class="hero-card-btn">
+                    Launch Chat Workspace ➔
+                </a>
+
+                <div class="hero-card-sublinks">
+                    <span>• No registration required</span>
+                    <span>• Immediate help</span>
+                    <span>• Private & encrypted</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Sections -->
+    <main>
+
+        <!-- Section 1: Core Support Pillars -->
+        <section class="section-wrapper" id="about">
+            <div class="section-header">
+                <span class="section-tag">COMPREHENSIVE CAMPUS CARE</span>
+                <h2 class="section-title">Institutional Protection & Support Pillars</h2>
+                <p class="section-subtitle">
+                    Nasarawa State University, Keffi maintains an uncompromising zero-tolerance stance against sexual harassment, intimidation, coercion, and all forms of Gender-Based Violence.
+                </p>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-icon-box">💬</div>
+                    <h3 class="pillar-title">24/7 AI Advisory Assistant</h3>
+                    <p class="pillar-desc">
+                        Interact in total confidence with Endy. Receive empathetic emotional distress support, definitions of abuse, safety guidance, and instant help navigation without logging in.
+                    </p>
+                    <a href="{% url 'advisor:chat_page' %}" class="pillar-link">Open Chatbot ➔</a>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon-box">🏥</div>
+                    <h3 class="pillar-title">NSUK Health Services & SARC</h3>
+                    <p class="pillar-desc">
+                        Immediate medical response, forensic check-ups, post-exposure prophylaxis (PEP for HIV prevention), emergency contraception, and clinical trauma healing.
+                    </p>
+                    <a href="#campus-support" class="pillar-link">View Health Desks ➔</a>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon-box">⚖️</div>
+                    <h3 class="pillar-title">Legal Rights & Advocacy Desk</h3>
+                    <p class="pillar-desc">
+                        Guidance under the Violence Against Persons (Prohibition) Act (VAPP) and NSUK Regulations. Connect with FIDA Nasarawa and the National Human Rights Commission.
+                    </p>
+                    <a href="#campus-support" class="pillar-link">Legal Resources ➔</a>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon-box">🛡️</div>
+                    <h3 class="pillar-title">Campus Security & Rapid Escort</h3>
+                    <p class="pillar-desc">
+                        24/7 NSUK Security Division coordination for immediate physical danger, night-time hostel escorts, threat reporting, and protective interventions.
+                    </p>
+                    <a href="#campus-support" class="pillar-link">Emergency Contacts ➔</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Knowledge Base / Resource Hub -->
+        <section class="section-wrapper kb-section" id="knowledge-base">
+            <div class="section-header">
+                <span class="section-tag">RESOURCE HUB & KNOWLEDGE BASE</span>
+                <h2 class="section-title">Recognized Forms of Gender-Based Violence</h2>
+                <p class="section-subtitle">
+                    Familiarize yourself with the definitions, warning signs, and university sanctions associated with different types of abuse under Nigerian law and NSUK regulations.
+                </p>
+            </div>
+
+            <div class="kb-cards-grid">
+                <div class="kb-card">
+                    <div class="kb-card-header">
+                        <h3 class="kb-card-title">Physical Abuse</h3>
+                        <span class="kb-card-tag">Physical</span>
+                    </div>
+                    <p class="kb-card-body">
+                        Using physical force that causes bodily harm, pain, or injury. This includes hitting, slapping, punching, kicking, choking, burning, pushing, or using dangerous weapons. No one has the right to touch your body with violence.
+                    </p>
+                    <div class="kb-card-policy">
+                        ⚖️ Criminal offense under the VAPP Act & grounds for immediate university expulsion or dismissal.
+                    </div>
+                </div>
+
+                <div class="kb-card highlight">
+                    <div class="kb-card-header">
+                        <h3 class="kb-card-title">Sexual Harassment & Assault</h3>
+                        <span class="kb-card-tag" style="background: var(--nsuk-gold-soft); color: var(--nsuk-gold-dark);">Zero Tolerance</span>
+                    </div>
+                    <p class="kb-card-body">
+                        Any unwanted sexual advance, non-consensual touching, rape, or coercion. Crucially includes "Sex-for-Marks" and academic extortion where grades, admissions, or positions are conditioned upon sexual favors.
+                    </p>
+                    <div class="kb-card-policy">
+                        ⚖️ Strict liability: NSUK Anti-Sexual Harassment Policy provides immediate suspension and prosecution.
+                    </div>
+                </div>
+
+                <div class="kb-card">
+                    <div class="kb-card-header">
+                        <h3 class="kb-card-title">Emotional & Psychological Abuse</h3>
+                        <span class="kb-card-tag">Psychological</span>
+                    </div>
+                    <p class="kb-card-body">
+                        Coercive behavior aimed at destroying self-esteem and independence: constant verbal insults, intimidation, threats of academic or physical ruin, gaslighting, stalking, and forced isolation from friends and family.
+                    </p>
+                    <div class="kb-card-policy">
+                        ⚖️ Recognized form of domestic and interpersonal violence under the VAPP Act.
+                    </div>
+                </div>
+
+                <div class="kb-card">
+                    <div class="kb-card-header">
+                        <h3 class="kb-card-title">Economic & Financial Abuse</h3>
+                        <span class="kb-card-tag">Economic</span>
+                    </div>
+                    <p class="kb-card-body">
+                        Controlling or denying access to money, withholding school fees or maintenance allowances to force compliance, forbidding lawful employment, or stealing scholarships and allowances.
+                    </p>
+                    <div class="kb-card-policy">
+                        ⚖️ Prohibited economic abuse under the VAPP Act (Section 12).
+                    </div>
+                </div>
+
+                <div class="kb-card">
+                    <div class="kb-card-header">
+                        <h3 class="kb-card-title">Harmful Traditional Practices</h3>
+                        <span class="kb-card-tag">Customary</span>
+                    </div>
+                    <p class="kb-card-body">
+                        Harmful customary rites violating bodily integrity and human rights: Female Genital Mutilation (FGM), forced/underage marriage, dowry-related violence, and degrading widowhood practices.
+                    </p>
+                    <div class="kb-card-policy">
+                        ⚖️ Expressly outlawed with criminal penalties under Federal and State VAPP legislation.
+                    </div>
+                </div>
+
+                <div class="kb-card highlight">
+                    <div class="kb-card-header">
+                        <h3 class="kb-card-title">Tech-Facilitated / Online GBV</h3>
+                        <span class="kb-card-tag" style="background: var(--nsuk-gold-soft); color: var(--nsuk-gold-dark);">Cyber Law</span>
+                    </div>
+                    <p class="kb-card-body">
+                        Cyberstalking, non-consensual sharing or threats of sharing intimate photos/videos ("revenge porn"), online doxxing, harassment via WhatsApp/social media, and installing tracking spyware on phones.
+                    </p>
+                    <div class="kb-card-policy">
+                        ⚖️ Actionable under the Cybercrimes (Prohibition, Prevention, etc.) Act of Nigeria.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Campus & State Verified Support Directory -->
+        <section class="section-wrapper directory-section" id="campus-support">
+            <div class="section-header">
+                <span class="section-tag">FIND SUPPORT & REFERRALS</span>
+                <h2 class="section-title">Campus & State Emergency Services</h2>
+                <p class="section-subtitle">
+                    Locate verified emergency clinics, crisis shelters, campus security units, legal aid networks, and confidential counselors in Nasarawa State and nationwide.
+                </p>
+            </div>
+
+            <!-- Dynamic Search Filter Box -->
+            <div class="directory-filter-box">
+                <div class="form-group">
+                    <label class="form-label" for="home-state-select">Select State</label>
+                    <select id="home-state-select" class="form-select">
+                        <option value="">-- All States (Nasarawa Highlighted) --</option>
+                        {% for code, name in states %}
+                            <option value="{{ code }}" {% if code == 'Nasarawa' %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="home-category-select">Support Service Category</label>
+                    <select id="home-category-select" class="form-select">
+                        <option value="">-- All Service Categories --</option>
+                        {% for code, name in categories %}
+                            <option value="{{ code }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button id="home-search-btn" class="btn-filter-search">Search Directory</button>
+            </div>
+
+            <!-- Output Grid -->
+            <div id="home-directory-results" class="orgs-grid">
+                {% for org in nasarawa_orgs %}
+                <div class="org-card">
+                    <div class="org-header">
+                        <h3 class="org-name">{{ org.name }}</h3>
+                        <span class="org-category">{{ org.get_category_display }}</span>
+                    </div>
+                    <p class="org-detail">{{ org.description }}</p>
+                    <p class="org-detail" style="font-size: 0.8rem;">📍 <strong>Location:</strong> {{ org.address }}</p>
+                    <div class="org-contacts-list">
+                        <div class="org-contact-item">
+                            <span>📞 Phone:</span>
+                            <a href="tel:{{ org.phone_number }}">{{ org.phone_number }}</a>
+                        </div>
+                        {% if org.alt_phone_number %}
+                        <div class="org-contact-item">
+                            <span>📞 Alt Phone:</span>
+                            <a href="tel:{{ org.alt_phone_number }}">{{ org.alt_phone_number }}</a>
+                        </div>
+                        {% endif %}
+                        {% if org.email %}
+                        <div class="org-contact-item">
+                            <span>✉️ Email:</span>
+                            <a href="mailto:{{ org.email }}">{{ org.email }}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                {% for org in orgs_preview %}
+                <div class="org-card">
+                    <div class="org-header">
+                        <h3 class="org-name">{{ org.name }}</h3>
+                        <span class="org-category">{{ org.get_category_display }}</span>
+                    </div>
+                    <p class="org-detail">{{ org.description }}</p>
+                    <div class="org-contacts-list">
+                        <div class="org-contact-item">
+                            <span>📞 Phone:</span>
+                            <a href="tel:{{ org.phone_number }}">{{ org.phone_number }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Section 4: Safety Advisory & Campus Protocol -->
+        <section class="section-wrapper safety-section" id="safety-protocol">
+            <div class="section-header">
+                <span class="section-tag">PERSONAL SAFETY & PRECAUTIONS</span>
+                <h2 class="section-title">Campus Safety Guidance & Planning</h2>
+                <p class="section-subtitle">
+                    Essential safety protocols designed for university students, campus hostel residents, and off-campus community members.
+                </p>
+            </div>
+
+            <div class="safety-steps-grid">
+                <div class="safety-step-box">
+                    <div class="step-number">Step 01</div>
+                    <h3 class="step-title">Hostel & Room Exit Routes</h3>
+                    <p class="step-desc">
+                        Identify at least two clear exits from your room or lodge. During arguments or volatile encounters, stay clear of kitchens or small locked bathrooms.
+                    </p>
+                </div>
+
+                <div class="safety-step-box">
+                    <div class="step-number">Step 02</div>
+                    <h3 class="step-title">Emergency Code Word</h3>
+                    <p class="step-desc">
+                        Establish a covert code word or distress text phrase with a trusted roommate, coursemate, or family member who will notify campus security immediately.
+                    </p>
+                </div>
+
+                <div class="safety-step-box">
+                    <div class="step-number">Step 03</div>
+                    <h3 class="step-title">Digital Privacy & Safe Exit</h3>
+                    <p class="step-desc">
+                        Use incognito browsing when seeking help. Remember you can hit the ESC key or Quick Exit button at any moment to hide this screen instantly.
+                    </p>
+                </div>
+
+                <div class="safety-step-box">
+                    <div class="step-number">Step 04</div>
+                    <h3 class="step-title">Emergency Go-Bag & Documents</h3>
+                    <p class="step-desc">
+                        Keep student ID, admission documents, birth certificates, daily medications, and emergency transport cash stored securely with a trusted friend.
+                    </p>
+                </div>
+            </div>
+
+            <div class="safety-cta-banner">
+                <div>
+                    <h3>Ready to build your personalized Safety Plan?</h3>
+                    <p>Use our interactive, encrypted checklist tool. Check off items, save locally, or export your private emergency plan.</p>
+                </div>
+                <a href="{% url 'advisor:chat_page' %}?tab=tab-planner" class="btn-hero-primary" style="white-space: nowrap;">
+                    <span>Open Safety Planner</span>
+                    <span>➔</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Institutional Footer (NSUK Style) -->
+    <footer class="nsuk-footer" id="campuses">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>NASARAWA STATE UNIVERSITY, KEFFI</h2>
+                <p>
+                    Centre for Gender Studies & Anti-GBV Advisory Portal.<br>
+                    Promoting gender equality, dignity, safety, and academic freedom across all university campuses.
+                </p>
+                <div class="footer-motto">"Knowledge for Development"</div>
+            </div>
+
+            <div class="footer-column">
+                <h4>University Campuses</h4>
+                <ul class="footer-links">
+                    <li><a href="https://nsuk.edu.ng" target="_blank" rel="noopener">Main Campus (Keffi)</a></li>
+                    <li><a href="https://nsuk.edu.ng" target="_blank" rel="noopener">Lafia Campus (Agriculture)</a></li>
+                    <li><a href="https://nsuk.edu.ng" target="_blank" rel="noopener">Pyanku Campus</a></li>
+                    <li><a href="https://nsuk.edu.ng" target="_blank" rel="noopener">Gudi Campus</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Quick Access</h4>
+                <ul class="footer-links">
+                    <li><a href="{% url 'advisor:chat_page' %}">Confidential Chatbot (Endy)</a></li>
+                    <li><a href="#knowledge-base">Resource Hub & Types of GBV</a></li>
+                    <li><a href="#campus-support">Find Support Directory</a></li>
+                    <li><a href="{% url 'advisor:chat_page' %}?tab=tab-planner">Safety Planner Tool</a></li>
+                    <li><a href="/admin/">Administrator Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Campus Dispatch</h4>
+                <div class="footer-contact-item">
+                    <strong>Address:</strong> Keffi - Akwanga Expressway, P.M.B. 1022, Keffi, Nasarawa State, Nigeria.
+                </div>
+                <div class="footer-contact-item">
+                    <strong>NSUK Security Rapid Dispatch:</strong> 08023456789
+                </div>
+                <div class="footer-contact-item">
+                    <strong>University Health Services:</strong> 08036001122
+                </div>
+                <div class="footer-contact-item">
+                    <strong>National GBV Helpline:</strong> 08006472468
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>
+                &copy; 2026 Nasarawa State University, Keffi (NSUK). All Rights Reserved. Centre for Gender Studies.
+            </div>
+            <div>
+                Confidential & Secure • Zero PII Stored • Press ESC for Quick Exit
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{% static 'advisor/js/main.js' %}"></script>
+</body>
+</html>

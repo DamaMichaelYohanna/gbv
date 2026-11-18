@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advisory Support Chatbot | Gender-Based Violence (GBV) Support Portal</title>
+    <meta name="description" content="A confidential, secure, and anonymous advisory chatbot and support organization directory for victims of Gender-Based Violence (GBV).">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="{% static 'advisor/css/style.css' %}">
+</head>
+<body>
+
+    <!-- Safety Banner -->
+    <div class="safety-banner" id="safety-banner">
+        <span>⚠️ <strong>CONFIDENTIAL PORTAL:</strong> Need to hide this page quickly? Press <span class="highlight">ESC</span> key or click the Quick Exit button.</span>
+    </div>
+
+    <!-- Application Header -->
+    <header class="app-header">
+        <div class="logo-container">
+            <span class="logo-icon">💜</span>
+            <div class="logo-text">
+                <h1>GBV Advisory Portal</h1>
+                <p>Confidential & Secure Support</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-quick-exit" title="Instantly exit this site (Shortcut: ESC)">
+                🏃‍♀️ Quick Exit (ESC)
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-wrapper">
+        
+        <!-- Left: Chat Section -->
+        <section class="chat-section">
+            <!-- Chat Welcome Notice Card -->
+            <div class="chat-welcome-notice">
+                <strong>Welcome to your safe space.</strong> I am <strong>Endy</strong>, your confidential advisor. 
+                This portal stores no PII or logs, and wipes instantly. Type a query below or click a quick action to start.
+            </div>
+            
+            <div class="chat-history" id="chat-history">
+                <!-- Chat messages loaded dynamically via Javascript -->
+            </div>
+            
+            <div class="chat-input-bar">
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Type a message (e.g., 'physical abuse', 'help me', 'hello')..." autocomplete="off">
+                </div>
+                <button id="send-btn" class="btn-send" title="Send Message">
+                    <span style="font-size: 1.2rem;">➔</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Right: Information, Directory, Planner Section -->
+        <section class="resource-section">
+            <!-- Tabs Navigation -->
+            <nav class="tab-header">
+                <button class="tab-btn active" data-tab="tab-resources">Resource Hub</button>
+                <button class="tab-btn" data-tab="tab-directory">Find Support</button>
+                <button class="tab-btn" data-tab="tab-planner">Safety Planner</button>
+            </nav>
+
+            <!-- Tab Content Pane -->
+            <div class="tab-content">
+                
+                <!-- Tab 1: Resource Hub -->
+                <div class="tab-pane active" id="tab-resources">
+                    <div class="resource-cards-list">
+                        
+                        <div class="card-item">
+                            <div class="card-header-flex">
+                                <h3 class="card-title">Physical Abuse</h3>
+                                <span class="card-tag">Physical</span>
+                            </div>
+                            <p class="card-body">
+                                Involves physical force that hurts you or threatens your safety. This includes hitting, punching, slapping, kicking, choking, or using physical restraint. No one has the right to hurt your body.
+                            </p>
+                        </div>
+                        
+                        <div class="card-item">
+                            <div class="card-header-flex">
+                                <h3 class="card-title">Sexual Violence</h3>
+                                <span class="card-tag">Sexual</span>
+                            </div>
+                            <p class="card-body">
+                                Any non-consensual sexual activity or contact. It includes rape, sexual coercion, unwanted touching, or harassment. Consent must be voluntary, enthusiastic, and can be withdrawn at any time.
+                            </p>
+                        </div>
+
+                        <div class="card-item">
+                            <div class="card-header-flex">
+                                <h3 class="card-title">Emotional & Psychological Abuse</h3>
+                                <span class="card-tag">Emotional</span>
+                            </div>
+                            <p class="card-body">
+                                Non-physical behaviors such as constant criticism, threats, gaslighting, extreme jealousy, control of who you see or talk to, and verbal insults. It damages self-esteem and limits personal autonomy.
+                            </p>
+                        </div>
+
+                        <div class="card-item">
+                            <div class="card-header-flex">
+                                <h3 class="card-title">Economic / Financial Abuse</h3>
+                                <span class="card-tag">Economic</span>
+                            </div>
+                            <p class="card-body">
+                                Controlling your ability to acquire, use, or maintain money and financial resources. This includes withholding allowance, blocking access to bank accounts, preventing you from keeping a job, or stealing your cash.
+                            </p>
+                        </div>
+
+                        <div class="card-item">
+                            <div class="card-header-flex">
+                                <h3 class="card-title">Harmful Traditional Practices</h3>
+                                <span class="card-tag">Cultural</span>
+                            </div>
+                            <p class="card-body">
+                                Harmful customary or cultural practices including Female Genital Mutilation (FGM), child/forced marriage, dowry violence, and humiliating widowhood rites. These violate bodily integrity and are prohibited by law.
+                            </p>
+                        </div>
+
+                        <div class="card-item">
+                            <div class="card-header-flex">
+                                <h3 class="card-title">Tech-Facilitated / Online GBV</h3>
+                                <span class="card-tag">Digital</span>
+                            </div>
+                            <p class="card-body">
+                                Online harassment, cyberstalking, non-consensual distribution of intimate images, digital surveillance via stalkerware, and impersonation. Digital abuse is recognized and actionable under Nigerian cybercrime laws.
+                            </p>
+                        </div>
+
+                        <div class="card-item" style="border-left: 4px solid var(--accent-rose);">
+                            <div class="card-header-flex">
+                                <h3 class="card-title">The VAPP Act (Nigeria)</h3>
+                                <span class="card-tag" style="background-color: rgba(141, 115, 207, 0.2); color: var(--accent-primary-hover);">Legal Rights</span>
+                            </div>
+                            <p class="card-body">
+                                The Violence Against Persons (Prohibition) Act protects you from all forms of violence, including domestic violence, rape, abandonment, and emotional abuse. You have the right to seek justice, file police reports, and apply for restraining orders.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Tab 2: Find Support Directory -->
+                <div class="tab-pane" id="tab-directory">
+                    <div class="search-container">
+                        <div class="form-group">
+                            <label class="form-label" for="state-select">Select Your State</label>
+                            <select id="state-select" class="form-select">
+                                <option value="" disabled selected>-- Choose Nigerian State --</option>
+                                {% for code, name in states %}
+                                    <option value="{{ code }}">{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="category-select">Support Service Required</label>
+                            <select id="category-select" class="form-select">
+                                <option value="" disabled selected>-- Choose Category --</option>
+                                {% for code, name in categories %}
+                                    <option value="{{ code }}">{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button id="search-orgs-btn" class="btn-search">Search Directory</button>
+                    </div>
+
+                    <!-- Directory Output List -->
+                    <div id="directory-results" class="directory-results">
+                        <div class="empty-state">
+                            <div class="empty-icon">🔎</div>
+                            <div>Select a state and category above to locate verified support hotlines, health facilities, legal advocates, and shelters.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Interactive Safety Planner -->
+                <div class="tab-pane" id="tab-planner">
+                    <div class="planner-welcome">
+                        <p>
+                            A safety plan is a personalized set of steps to keep you safe in an abusive situation. Check off items as you secure them. This checklist is stored <strong>only inside your browser's private storage</strong> and is never sent to the server.
+                        </p>
+                    </div>
+
+                    <!-- Safety Plan Progress Bar -->
+                    <div class="planner-progress-box">
+                        <div class="progress-header">
+                            <span class="progress-title">Safety Plan Secure Status</span>
+                            <span class="progress-percent" id="planner-progress-text">0% Complete</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" id="planner-progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="planner-steps">
+                        
+                        <!-- Emergency Steps -->
+                        <div class="planner-category-block" id="planner-sec-emergency">
+                            <h4 class="planner-category-title">Emergency Prep</h4>
+                            <div class="planner-checklist">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="emp-phone">
+                                    <span>Keep a mobile phone fully charged and secretly close to you at all times.</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="emp-cash">
+                                    <span>Stash emergency cash in a hidden, safe spot (for transport or emergency lodging).</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="emp-code">
+                                    <span>Establish a secret code word or signal with a trusted neighbor or friend to signal you need police/help.</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="emp-exit">
+                                    <span>Identify two exit routes from your house (windows, backdoors, fire escapes).</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Document Checklist -->
+                        <div class="planner-category-block" id="planner-sec-documents">
+                            <h4 class="planner-category-title">Important Documents to Secure</h4>
+                            <div class="planner-checklist">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="doc-id">
+                                    <span>National ID card, Voters card, or Passport (or copies of them).</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="doc-kids">
+                                    <span>Children's birth certificates or school credentials.</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="doc-fin">
+                                    <span>Bank card numbers, bank statements, or proof of ownership/deeds.</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="doc-evidence">
+                                    <span>Save photos of injuries, threat text messages, or diary of events in a secure hidden email account.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Personal Custom Strategy -->
+                        <div class="planner-category-block">
+                            <h4 class="planner-category-title">My Custom Steps</h4>
+                            <div class="planner-checklist" id="custom-checklist-list">
+                                <!-- Dynamic checkmarks added here -->
+                            </div>
+                            <div class="custom-writein-container">
+                                <input type="text" id="custom-plan-input" class="custom-writein-input" placeholder="Add custom action item..." autocomplete="off">
+                                <button id="add-custom-btn" class="btn-add-custom">Add</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="planner-actions">
+                        <button id="download-plan-btn" class="btn-download-plan">💾 Download Safety Plan File</button>
+                        <button id="clear-plan-btn" class="btn-clear-plan" title="Wipe safety plan data">🗑️ Clear</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div>
+            <span>© 2026 Advisory Chatbot. Prepared for GBV Victim Support Study.</span>
+        </div>
+        <div class="footer-confidentiality">
+            <span class="confidential-dot"></span>
+            <span>Anonymous Connection Enabled</span>
+        </div>
+    </footer>
+
+    <!-- Floating Panic Button for Mobile/Scroll -->
+    <div class="floating-exit">
+        <button class="btn-quick-exit" title="Instantly exit this site (Shortcut: ESC)">
+            🏃‍♀️ QUICK EXIT
+        </button>
+    </div>
+
+    <!-- JS Client-side Logic -->
+    <script src="{% static 'advisor/js/main.js' %}"></script>
+</body>
+</html>

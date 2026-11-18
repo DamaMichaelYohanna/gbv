@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard | NSUK GBV Advisory Portal</title>
+    <link rel="stylesheet" href="{% static 'advisor/css/style.css' %}">
+</head>
+<body class="staff-dashboard">
+    <header class="dashboard-header">
+        <a href="{% url 'advisor:home' %}" class="dashboard-brand">
+            <span class="dashboard-crest">🏛️</span>
+            <span>
+                <strong>NSUK GBV Advisory Portal</strong>
+                <small>Staff dashboard</small>
+            </span>
+        </a>
+        <div class="dashboard-header-actions">
+            <span class="dashboard-user">Signed in as {{ request.user.get_username }}</span>
+            <a href="/admin/" class="dashboard-admin-link">Open Django admin</a>
+            <form method="post" action="{% url 'admin:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="dashboard-logout">Sign out</button>
+            </form>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="dashboard-intro">
+            <div>
+                <span class="section-tag">STAFF OVERVIEW</span>
+                <h1>Good to see you, {{ request.user.first_name|default:request.user.get_username }}.</h1>
+                <p>Monitor support resources, knowledge content, and anonymous portal activity from one place.</p>
+            </div>
+            <a href="{% url 'advisor:home' %}" class="dashboard-view-site">View public portal →</a>
+        </div>
+
+        <section class="dashboard-metrics" aria-label="Portal summary">
+            <article class="dashboard-metric">
+                <span class="dashboard-metric-label">Support organizations</span>
+                <strong>{{ organization_count }}</strong>
+                <small>{{ verified_organization_count }} verified and visible</small>
+            </article>
+            <article class="dashboard-metric dashboard-metric-gold">
+                <span class="dashboard-metric-label">Knowledge entries</span>
+                <strong>{{ knowledge_count }}</strong>
+                <small>Advisory responses available to Endy</small>
+            </article>
+            <article class="dashboard-metric">
+                <span class="dashboard-metric-label">Anonymous interactions</span>
+                <strong>{{ interaction_count }}</strong>
+                <small>Aggregate events only</small>
+            </article>
+            <article class="dashboard-metric dashboard-metric-alert">
+                <span class="dashboard-metric-label">Quick exits</span>
+                <strong>{{ quick_exit_count }}</strong>
+                <small>{{ safety_plan_count }} safety plans downloaded</small>
+            </article>
+        </section>
+
+        <section class="dashboard-grid">
+            <article class="dashboard-panel dashboard-quick-actions">
+                <div class="dashboard-panel-heading">
+                    <div>
+                        <span class="section-tag">MANAGE</span>
+                        <h2>Quick actions</h2>
+                    </div>
+                </div>
+                <div class="dashboard-actions-list">
+                    <a href="/admin/advisor/supportorganization/add/" class="dashboard-action">
+                        <span>＋</span>
+                        <span><strong>Add support organization</strong><small>Publish a new referral service</small></span>
+                    </a>
+                    <a href="/admin/advisor/chatbotresponse/add/" class="dashboard-action">
+                        <span>✦</span>
+                        <span><strong>Add knowledge entry</strong><small>Teach Endy a new response</small></span>
+                    </a>
+                    <a href="/admin/advisor/supportorganization/" class="dashboard-action">
+                        <span>⌕</span>
+                        <span><strong>Review directory</strong><small>Verify and edit support listings</small></span>
+                    </a>
+                    <a href="/admin/advisor/anonymousstats/" class="dashboard-action">
+                        <span>↗</span>
+                        <span><strong>View full analytics</strong><small>Inspect anonymous event records</small></span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="dashboard-panel">
+                <div class="dashboard-panel-heading">
+                    <div>
+                        <span class="section-tag">INSIGHTS</span>
+                        <h2>Top conversation topics</h2>
+                    </div>
+                </div>
+                {% if top_intents %}
+                    <div class="dashboard-topic-list">
+                        {% for item in top_intents %}
+                            <div class="dashboard-topic">
+                                <span>{{ item.detected_intent|title }}</span>
+                                <strong>{{ item.count }}</strong>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="dashboard-empty">No conversation topics have been recorded yet.</p>
+                {% endif %}
+            </article>
+        </section>
+
+        <section class="dashboard-grid">
+            <article class="dashboard-panel">
+                <div class="dashboard-panel-heading">
+                    <div>
+                        <span class="section-tag">DIRECTORY</span>
+                        <h2>Recently added organizations</h2>
+                    </div>
+                    <a href="/admin/advisor/supportorganization/" class="dashboard-panel-link">See all →</a>
+                </div>
+                {% if recent_organizations %}
+                    <div class="dashboard-record-list">
+                        {% for organization in recent_organizations %}
+                            <div class="dashboard-record">
+                                <span class="dashboard-record-icon">⌂</span>
+                                <span><strong>{{ organization.name }}</strong><small>{{ organization.get_category_display }} · {{ organization.get_state_display }}</small></span>
+                                {% if organization.is_verified %}<b class="dashboard-status">Verified</b>{% else %}<b class="dashboard-status dashboard-status-muted">Review</b>{% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="dashboard-empty">No organizations have been added yet.</p>
+                {% endif %}
+            </article>
+
+            <article class="dashboard-panel">
+                <div class="dashboard-panel-heading">
+                    <div>
+                        <span class="section-tag">KNOWLEDGE BASE</span>
+                        <h2>Recently updated advice</h2>
+                    </div>
+                    <a href="/admin/advisor/chatbotresponse/" class="dashboard-panel-link">See all →</a>
+                </div>
+                {% if recent_knowledge %}
+                    <div class="dashboard-record-list">
+                        {% for entry in recent_knowledge %}
+                            <div class="dashboard-record">
+                                <span class="dashboard-record-icon dashboard-record-icon-gold">✦</span>
+                                <span><strong>{{ entry.title }}</strong><small>{{ entry.intent }} · Updated {{ entry.updated_at|date:"M j, Y" }}</small></span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="dashboard-empty">No knowledge entries have been added yet.</p>
+                {% endif %}
+            </article>
+        </section>
+    </main>
+</body>
+</html>

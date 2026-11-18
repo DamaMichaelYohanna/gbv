@@ -1,0 +1,74 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+<!-- Analytics Dashboard cards -->
+<div class="analytics-dashboard" style="margin-bottom: 30px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    <h2 style="margin-bottom: 20px; font-size: 1.4rem; color: #333; border-bottom: 2px solid #7b62b3; padding-bottom: 8px; font-weight: 600;">📊 Anonymous Interaction Insights</h2>
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 25px;">
+        
+        <!-- Metric Card 1: Total Visits -->
+        <div style="background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-top: 4px solid #7b62b3; flex: 1; min-width: 220px;">
+            <div style="font-size: 0.85rem; color: #888; text-transform: uppercase; font-weight: 600;">Total User Actions</div>
+            <div style="font-size: 2.2rem; font-weight: 700; color: #333; margin-top: 8px;">{{ analytics.total_interactions }}</div>
+            <div style="font-size: 0.75rem; color: #a5a5a5; margin-top: 5px;">Aggregate anonymous events logged</div>
+        </div>
+
+        <!-- Metric Card 2: Quick Exits -->
+        <div style="background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-top: 4px solid #d9534f; flex: 1; min-width: 220px;">
+            <div style="font-size: 0.85rem; color: #888; text-transform: uppercase; font-weight: 600;">Panic Button Hits (Quick Exit)</div>
+            <div style="font-size: 2.2rem; font-weight: 700; color: #d9534f; margin-top: 8px;">{{ analytics.quick_exit_count }}</div>
+            <div style="font-size: 0.75rem; color: #a5a5a5; margin-top: 5px;">Immediate browser redirections logged</div>
+        </div>
+
+        <!-- Metric Card 3: Safety Plans -->
+        <div style="background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-top: 4px solid #5cb85c; flex: 1; min-width: 220px;">
+            <div style="font-size: 0.85rem; color: #888; text-transform: uppercase; font-weight: 600;">Safety Plans Saved</div>
+            <div style="font-size: 2.2rem; font-weight: 700; color: #5cb85c; margin-top: 8px;">{{ analytics.download_count }}</div>
+            <div style="font-size: 0.75rem; color: #a5a5a5; margin-top: 5px;">Offline safety plan downloads</div>
+        </div>
+
+    </div>
+
+    <!-- Details Grid -->
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        
+        <!-- Left: Top Intents -->
+        <div style="background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); flex: 1; min-width: 300px;">
+            <h3 style="font-size: 1rem; font-weight: 600; color: #555; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 6px;">💬 Most Frequently Asked Topics (Top Intents)</h3>
+            {% if analytics.top_intents %}
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    {% for item in analytics.top_intents %}
+                        <li style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #f5f5f5; font-size: 0.9rem;">
+                            <span style="font-weight: 600; color: #7b62b3;">{{ item.detected_intent|upper }}</span>
+                            <span style="color: #666; background: #f0ecf7; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">{{ item.count }} asks</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p style="font-size: 0.85rem; color: #999; padding: 10px 0;">No chat interactions logged yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Right: Top Regions Searched -->
+        <div style="background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); flex: 1; min-width: 300px;">
+            <h3 style="font-size: 1rem; font-weight: 600; color: #555; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 6px;">📍 Most Visited Directory Locations (States)</h3>
+            {% if analytics.top_states %}
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    {% for item in analytics.top_states %}
+                        <li style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #f5f5f5; font-size: 0.9rem;">
+                            <span style="font-weight: 600; color: #555;">{{ item.state_filter_used }}</span>
+                            <span style="color: #666; background: #f5f5f5; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">{{ item.count }} searches</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p style="font-size: 0.85rem; color: #999; padding: 10px 0;">No directory searches logged yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}
